@@ -60,4 +60,4 @@ if __name__ == "__main__":
         os.environ.get("PORT", 8000)  # 8000 for local
     )  # define port so we can map container port to localhost
 
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)  # True for test
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)  # True for test
