@@ -2,7 +2,7 @@ import os, sys
 
 
 # ________________ HANDLE THE PATH THING ________________ #
-# get the absolute path of the script's directory
+# get the absolute path of the script's directory #
 script_path = os.path.dirname(os.path.abspath(__file__))
 # get the parent directory of the script's directory
 parent_path = os.path.dirname(script_path)
