@@ -1,0 +1,111 @@
+# AWS
+scp -r -i <PEM key> <AWS path> <Local path>
+scp -r -i computervisionec2.pem ubuntu@ec2-15-156-80-182.ca-central-1.compute.amazonaws.com:/home/ubuntu/Projects/Bird_classification/Research/output /home/hoangng/Projects/Bird_Classification/Research/from_ec2/
+
+scp -r -i <PEM key> <Local path> <AWS path>
+scp -i computervisionec2.pem /home/hoangng/Projects/Bird_Classification/Research/models/model_base_test1.py ubuntu@ec2-15-156-80-182.ca-central-1.compute.amazonaws.com:/home/ubuntu/Projects/Bird_classification/Research/models/model_base_test1.py
+
+aws s3 sync <local path> <s3:// path>
+aws s3 sync /home/ubuntu/Projects/Bird_classification/Research/output/data s3://computervision0/output/data
+
+aws s3 cp <s3:// path> <local path>
+aws s3 cp s3://computervision0/models/mobilenetv2_finetune1.py /home/ubuntu/Projects/Bird_classification/Research/models/mobilenetv2_finetune1.py
+
+ps aux | grep <process-name>
+ps aux | grep mobilenet_finetune1.py
+
+screen -D -r <screen ID> # Re-attach to a screen on EC2
+
+screen -S <name-of-the-screen-session> # Create a screen session on EC2
+
+# Heroku
+
+heroku --version
+
+heroku login 
+
+heroku container:login
+
+heroku create <app-name>
+
+heroku container:push web --app <app-name>
+
+heroku ps:scale web=<number> --app <app-name> #web = 1: $7/month or $5/month
+
+heroku container:release web --app <app-name>
+
+# Note: need to be inside the app folder for Heroku commands
+
+
+# Docker
+docker build -t <app_name> .
+docker run -d -p 8000:8000 <app-name>
+
+
+# Powershell
+Remove-Item -Path "C:\Documents\MyFolder" -Recurse -Force
+
+# Git
+
+git branch
+git switch
+git checkout -b new_branch_name
+# in master to merge
+git merge name_of_the_branch
+
+
+# Linux
+cat > file_name.csv 
+cat ./folder_name/*.csv >> file_name.csv
+head -n 1 combined_census_data.csv > combined_census_data0.csv
+
+
+# Git
+git push origin --delete old_branch_name
+git switch destination_branch_name vs git checkout destination_branch_name
+git checkout -b new_branch_name vs git branch new_branch_name
+
+
+# npm
+npm run build
+
+
+# more of learning process
+npx create-react-app <name_app>
+npm start
+
+
+# more professional
+npm create vite
+npm i # to install packages
+npm run dev
+npm i eslint vite-plugin-eslint eslint-config-react-app --save-dev
+
+create a file name .eslintrc.json
+# in .eslintrc.json
+{
+    "extends": "react-app"
+}
+
+# in vite.config.js
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import eslint from "vite-plugin-eslint";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+    plugins: [react(), eslint()],
+});
+
+
+$ fastapi
+uvicorn app:app
+uvicorn app:app --reload
+
+
+# for chatbot
+docker build -t my-react-app .
+docker run -p 5173:5173 my-react-app
+
+docker build -t your-fastapi-app .
+docker run -p 8000:8000 your-fastapi-app
