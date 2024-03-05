@@ -55,7 +55,7 @@ class PromptHandling:
             raise CustomException(e, sys)
 
     # ________________ GET RECENT PROMPT MESSAGES ________________ #
-    def get_recent_messages(
+    def get_recent_prompt_messages(
         self, limit: bool = True, number_of_recent_messages: int = 6
     ):
 
@@ -99,7 +99,7 @@ class PromptHandling:
         return messages
 
     # ________________ SAVE ALL THE MESSAGES ________________ #
-    def store_messages(self, request_message, response_message):
+    def store_prompt_messages(self, request_message, response_message):
 
         try:
 
@@ -123,10 +123,10 @@ class PromptHandling:
         except Exception as e:
             raise CustomException(e, sys)
 
-    def make_promptmessages(self, prompt_input: str):
+    def make_prompt_messages(self, prompt_input: str):
         try:
 
-            messages = self.get_recent_messages()
+            messages = self.get_recent_prompt_messages()
 
             user_messages = {
                 "role": "user",
@@ -141,7 +141,37 @@ class PromptHandling:
             raise CustomException(e, sys)
 
     # ________________ RESET THE TEMPORARY DATA FILE ________________ #
-    def reset_temporary_messages(self):
+    def reset_temporary_prompt_messages(self):
 
         # Write an empty file
         open(self.temporary_data_path, "w")
+
+
+class MessageDataHandling:
+
+    def __init__(self, audioPath, ID, source, date, text, userUID):
+
+        self.audioPath = audioPath
+        self.ID = ID
+        self.source = source
+        self.date = date
+        self.text = text
+        self.userUID = userUID
+
+    def make_message_data(self):
+
+        try:
+
+            message_data = {
+                "audioPath": self.audioPath,
+                "ID": self.ID,
+                "source": self.source,
+                "date": self.date,
+                "text": self.text,
+                "userUID": self.userUID,
+            }
+
+            return message_data
+
+        except Exception as e:
+            raise CustomException(e, sys)

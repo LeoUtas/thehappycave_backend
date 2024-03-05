@@ -4,9 +4,12 @@ import sys, os
 from fastapi import HTTPException, Request
 from fastapi import APIRouter
 
+import firebase_admin
+from firebase_admin import auth, credentials, storage, firestore
 
 import firebase_admin
-from firebase_admin import auth, credentials
+from firebase_admin import credentials, storage, firestore
+
 
 # ________________ HANDLE THE PATH THING ________________ #
 # get the absolute path of the script's directory
@@ -29,7 +32,9 @@ if not firebase_admin._apps:
             "the-happy-cave-firebase-adminsdk-slai7-89463d7543.json",
         )
     )
-    firebase_admin.initialize_app(cred)
+    firebase_admin.initialize_app(cred, {"storageBucket": "the-happy-cave.appspot.com"})
+
+db = firestore.client()
 
 
 @router.post("/create_user/")
