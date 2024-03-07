@@ -3,15 +3,22 @@ from firebase_admin import firestore, storage
 from fastapi.concurrency import run_in_threadpool
 
 
+# Handle the task to post/upload audio and text to Firebase and save them
 async def upload_messages_to_firebase(
-    audio_file: UploadFile, ID: str, source: str, date: str, text: str, userUID: str
+    service_name: str,
+    audio_file: UploadFile,
+    ID: str,
+    source: str,
+    date: str,
+    text: str,
+    userUID: str,
 ):
     try:
         # Upload audio file to Firebase Storage
         bucket = await run_in_threadpool(
             storage.bucket
         )  # Assuming storage.bucket is a callable that returns a bucket object
-        blob = bucket.blob(f"{source}/{ID}")
+        blob = bucket.blob(f"{source}Audio{service_name}/{ID}")
 
         # Read file content in async manner
         file_content = await audio_file.read()
@@ -28,13 +35,13 @@ async def upload_messages_to_firebase(
         db = firestore.client()
 
         if source == "openai":
-            doc_reference = db.collection("openaiMessages").document(ID)
+            doc_ref = db.collection("openaiMessages" + service_name).document(ID)
         else:
-            doc_reference = db.collection("userMessages").document(ID)
+            doc_ref = db.collection("userMessages" + service_name).document(ID)
 
         # Firestore operations in threadpool
         await run_in_threadpool(
-            doc_reference.set,
+            doc_ref.set,
             {
                 "audio_url": blob.public_url,
                 "ID": ID,

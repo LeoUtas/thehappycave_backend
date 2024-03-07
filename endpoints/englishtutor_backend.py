@@ -20,7 +20,7 @@ from aiengine.openai_requests import OpenaiAPI
 from aiengine.the11labs_requests import The11Labs
 from aiengine.mistralai_requests import *
 from database.database_handler import PromptHandling
-from database.utils import upload_messages_to_firebase
+from database.utils import *
 from exception import CustomException
 
 
@@ -30,6 +30,8 @@ class TextInput(BaseModel):
 
 
 # ________________ PROMPT HANDLING ________________ #
+SERVICE_NAME = "EnglishTutor"
+
 role = "user"
 name = "Miss PunsAlot"
 gender = "female"
@@ -71,6 +73,9 @@ router = APIRouter()
 
 
 # _______ HANDLING AI RESPONSE _______ #
+
+
+# Handle the reset button at the frontend
 @router.get("/reset_conversation/")
 async def reset_temporary():
     prompt_handler.reset_temporary_prompt_messages()
@@ -78,6 +83,7 @@ async def reset_temporary():
     return {"response": "conversation reset"}
 
 
+# Handle post chosen messages to Firestore and Firebase storage and save them
 @router.post("/post_messages/")
 async def post_user_audio_and_text(
     audio_file: UploadFile = File(...),
@@ -90,7 +96,7 @@ async def post_user_audio_and_text(
     try:
 
         file_url = await upload_messages_to_firebase(
-            audio_file, ID, source, date, text, userUID
+            SERVICE_NAME, audio_file, ID, source, date, text, userUID
         )
         return {
             "message": "File and metadata uploaded successfully",
@@ -103,8 +109,10 @@ async def post_user_audio_and_text(
         )
 
 
+# Request ai audio response and send to frontend
 @router.post("/get_ai_audio_response/")
 async def get_ai_response(input: TextInput):
+
     try:
 
         messages = prompt_handler.make_prompt_messages(prompt_input=input.text)
@@ -122,19 +130,6 @@ async def get_ai_response(input: TextInput):
         # Convert openai response to speech
         audio_output = openai_engine.convert_text_to_speech(voice_nova, ai_response)
 
-        # # Ensure the directory exists
-        # path = os.path.join(parent_path, "database", "openai_audio")
-        # os.makedirs(path, exist_ok=True)
-
-        # # Construct a unique file name
-        # timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        # file_name = f"openai_{timestamp}.mp3"
-        # file_path = os.path.join(path, file_name)
-
-        # # Save the audio_output to a file
-        # with open(file_path, "wb") as file:
-        #     file.write(audio_output)
-
         # Ensure output
         if not audio_output:
             raise HTTPException(status_code=400, detail="Failed to get audio_output")
@@ -150,6 +145,7 @@ async def get_ai_response(input: TextInput):
         raise CustomException(e, sys)
 
 
+# Retrieve ai text response and send to frontend
 @router.get("/get_ai_text_response/")
 async def get_ai_text_response():
 
