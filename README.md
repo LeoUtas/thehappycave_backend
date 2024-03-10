@@ -13,3 +13,5 @@
     <li><a href="#reference">Reference</a></li>
   </ol>
 </details>
+
+This repo contains the source code for the original version of the backend up to the point of adding talkative_agent (not streaming yet) to the project.
