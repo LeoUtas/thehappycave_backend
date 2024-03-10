@@ -13,3 +13,5 @@
     <li><a href="#reference">Reference</a></li>
   </ol>
 </details>
+
+This is gonna be a main branch but I haven't had time for a decent readme yet, see the future me there.
