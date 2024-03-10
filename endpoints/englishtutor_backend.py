@@ -89,6 +89,7 @@ async def post_user_audio_and_text(
     audio_file: UploadFile = File(...),
     ID: str = Form(...),
     source: str = Form(...),
+    time: str = Form(...),
     date: str = Form(...),
     text: str = Form(...),
     userUID: str = Form(...),
@@ -96,7 +97,7 @@ async def post_user_audio_and_text(
     try:
 
         file_url = await upload_messages_to_firebase(
-            SERVICE_NAME, audio_file, ID, source, date, text, userUID
+            SERVICE_NAME, audio_file, ID, source, time, date, text, userUID
         )
         return {
             "message": "File and metadata uploaded successfully",
@@ -157,14 +158,14 @@ async def get_ai_text_response():
         with open(path_to_text_data, "r") as file:
             data = json.load(file)
 
-        last_openai_text = None
+        last_ai_text = None
         for entry in reversed(data):
             if entry["role"] == "system":
-                last_openai_text = entry["content"]
+                last_ai_text = entry["content"]
                 break
 
-        if last_openai_text is not None:
-            return {"text": last_openai_text}
+        if last_ai_text is not None:
+            return {"text": last_ai_text}
         else:
             print("No AI text response found")
             return {"text": "No AI text response found"}

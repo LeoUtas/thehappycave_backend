@@ -147,13 +147,16 @@ class PromptHandling:
         open(self.temporary_data_path, "w")
 
 
+# Possibly use for fetching data from Firestore => backend => frontend
+# This method is not used for now
 class MessageDataHandling:
 
-    def __init__(self, audioPath, ID, source, date, text, userUID):
+    def __init__(self, audioPath, ID, source, time, date, text, userUID):
 
         self.audioPath = audioPath
         self.ID = ID
         self.source = source
+        self.time = time
         self.date = date
         self.text = text
         self.userUID = userUID
@@ -166,6 +169,7 @@ class MessageDataHandling:
                 "audioPath": self.audioPath,
                 "ID": self.ID,
                 "source": self.source,
+                "time": self.time,
                 "date": self.date,
                 "text": self.text,
                 "userUID": self.userUID,

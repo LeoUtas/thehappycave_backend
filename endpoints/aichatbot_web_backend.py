@@ -47,7 +47,7 @@ prompt_handler = PromptHandling(
 
 # ________________ CONFIG OPENAI API ________________ #
 load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
+api_key = os.getenv("AICHATBOT_WEB_API_KEY")
 model_speech_to_text = os.getenv("chosen_model_speech_to_text")
 model_text_generation = os.getenv("chosen_model_text_generation")
 model_text_to_speech = os.getenv("chosen_model_text_to_speech")

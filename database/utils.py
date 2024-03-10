@@ -9,6 +9,7 @@ async def upload_messages_to_firebase(
     audio_file: UploadFile,
     ID: str,
     source: str,
+    time: str,
     date: str,
     text: str,
     userUID: str,
@@ -34,8 +35,8 @@ async def upload_messages_to_firebase(
         # Save metadata in Firestore
         db = firestore.client()
 
-        if source == "openai":
-            doc_ref = db.collection("openaiMessages" + service_name).document(ID)
+        if source == "ai":
+            doc_ref = db.collection("aiMessages" + service_name).document(ID)
         else:
             doc_ref = db.collection("userMessages" + service_name).document(ID)
 
@@ -46,6 +47,7 @@ async def upload_messages_to_firebase(
                 "audio_url": blob.public_url,
                 "ID": ID,
                 "source": source,
+                "time": time,
                 "date": date,
                 "text": text,
                 "userUID": userUID,
