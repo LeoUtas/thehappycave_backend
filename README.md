@@ -14,4 +14,4 @@
   </ol>
 </details>
 
-This repo contains the source code for the original version of the backend up to the point of adding talkative_agent (not streaming yet) to the project.
+This repo contains the source code for experimenting the development of streaming talkative_agent
