@@ -13,3 +13,5 @@
     <li><a href="#reference">Reference</a></li>
   </ol>
 </details>
+
+This repo contains the source code for experimenting including firebase to the project
