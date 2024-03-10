@@ -14,6 +14,7 @@ sys.path.append(parent_path)
 from endpoints.todotoday_backend import router as todotoday_router
 from endpoints.aichatbot_web_backend import router as aichatbot_web_router
 from endpoints.englishtutor_backend import router as englishtutor_router
+from endpoints.talkativeagent_backend import router as talkativeagent_router
 from endpoints.thehappycave_auth_backend import router as thehappycave_auth_router
 
 
@@ -50,6 +51,7 @@ def read_root():
 app.include_router(todotoday_router, prefix="/todotoday")
 app.include_router(aichatbot_web_router, prefix="/aichatbot_web")
 app.include_router(englishtutor_router, prefix="/english_tutor")
+app.include_router(talkativeagent_router, prefix="/talkative_agent")
 app.include_router(thehappycave_auth_router, prefix="/thehappycave_auth")
 
 
@@ -60,4 +62,4 @@ if __name__ == "__main__":
         os.environ.get("PORT", 8000)  # 8000 for local
     )  # define port so we can map container port to localhost
 
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)  # True for test
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)  # True for test

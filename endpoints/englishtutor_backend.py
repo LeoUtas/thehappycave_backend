@@ -1,7 +1,6 @@
 # _______ BACKEND FOR ENGLISH TUTOR MOBILE _______ #
 
 import sys, os, json
-from datetime import datetime
 from dotenv import load_dotenv
 from fastapi import HTTPException, File, UploadFile, Form
 from fastapi.responses import StreamingResponse
@@ -57,13 +56,14 @@ prompt_handler = PromptHandling(
 
 # ________________ CONFIG OPENAI API ________________ #
 load_dotenv()
+api_key = os.getenv("THE_HAPPY_CAVE_ENGLISHTUTOR")
 model_speech_to_text = os.getenv("chosen_model_speech_to_text")
 model_text_generation = os.getenv("chosen_model_text_generation")
 model_text_to_speech = os.getenv("chosen_model_text_to_speech")
 voice_nova = os.getenv("VOICE_NOVA")
 
 openai_engine = OpenaiAPI(
-    model_speech_to_text, model_text_generation, model_text_to_speech
+    api_key, model_speech_to_text, model_text_generation, model_text_to_speech
 )
 the11labs_engine = The11Labs()
 # ------------------------------------------------------------------- #

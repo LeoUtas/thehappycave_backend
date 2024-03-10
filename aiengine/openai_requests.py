@@ -10,32 +10,31 @@ sys.path.append(parent_path)
 
 
 from openai import OpenAI
-from dotenv import load_dotenv
 from exception import CustomException
-
-
-load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 class OpenaiAPI:
 
     def __init__(
         self,
+        api_key,
         model_speech_to_text,
         model_text_generation,
         model_text_to_speech,
     ):
+        self.api_key = api_key
         self.model_speech_to_text = model_speech_to_text
         self.model_text_generation = model_text_generation
         self.model_text_to_speech = model_text_to_speech
+
+        self.client = OpenAI(api_key=self.api_key)
 
     # ________________ BACKEND FOR OPENAICHATBOT _________________ #
     # ________________ CONVERT SPEECH TO TEXT ________________ #
     def convert_speech_to_text(self, audio_input, response_format="text"):
         try:
 
-            transcript = client.audio.transcriptions.create(
+            transcript = self.client.audio.transcriptions.create(
                 model=self.model_speech_to_text,
                 language="en",
                 file=audio_input,
@@ -54,7 +53,7 @@ class OpenaiAPI:
     ):
         try:
 
-            openai_response = client.chat.completions.create(
+            openai_response = self.client.chat.completions.create(
                 model=self.model_text_generation, messages=messages
             )
 
@@ -67,7 +66,7 @@ class OpenaiAPI:
     def convert_text_to_speech(self, voice: str, text_input: str):
         try:
 
-            response = client.audio.speech.create(
+            response = self.client.audio.speech.create(
                 model=self.model_text_to_speech,
                 voice=voice,
                 input=text_input,
@@ -78,21 +77,21 @@ class OpenaiAPI:
         except Exception as e:
             raise CustomException(e, sys)
 
-    # _____________ BACKEND FOR TODOTODAY _____________ #
-    # ________________ TEXT GENERATION ________________ #
-    def request_openai_response_for_todotoday(self, role: str, prompt: str):
-        try:
-            ai_response = client.chat.completions.create(
-                model=self.model_text_generation,
-                messages=[
-                    {
-                        "role": role,
-                        "content": prompt,
-                    }
-                ],
-            )
+    # # _____________ BACKEND FOR TODOTODAY _____________ #
+    # # ________________ TEXT GENERATION ________________ #
+    # def request_openai_response_for_todotoday(self, role: str, prompt: str):
+    #     try:
+    #         ai_response = self.client.chat.completions.create(
+    #             model=self.model_text_generation,
+    #             messages=[
+    #                 {
+    #                     "role": role,
+    #                     "content": prompt,
+    #                 }
+    #             ],
+    #         )
 
-            return ai_response.choices[0].message.content
+    #         return ai_response.choices[0].message.content
 
-        except Exception as e:
-            raise CustomException(e, sys)
+    #     except Exception as e:
+    #         raise CustomException(e, sys)

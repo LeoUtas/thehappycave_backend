@@ -47,13 +47,14 @@ prompt_handler = PromptHandling(
 
 # ________________ CONFIG OPENAI API ________________ #
 load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
 model_speech_to_text = os.getenv("chosen_model_speech_to_text")
 model_text_generation = os.getenv("chosen_model_text_generation")
 model_text_to_speech = os.getenv("chosen_model_text_to_speech")
 voice_nova = os.getenv("VOICE_NOVA")
 
 openai_engine = OpenaiAPI(
-    model_speech_to_text, model_text_generation, model_text_to_speech
+    api_key, model_speech_to_text, model_text_generation, model_text_to_speech
 )
 the11labs_engine = The11Labs()
 
