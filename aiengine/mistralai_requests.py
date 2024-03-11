@@ -15,7 +15,7 @@ from mistralai.models.chat_completion import ChatMessage
 from pathlib import Path
 from dotenv import load_dotenv
 from exception import CustomException
-from aiengine.database_handler import *
+from database.database_handler import *
 
 
 load_dotenv()

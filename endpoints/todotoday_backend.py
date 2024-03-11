@@ -14,8 +14,6 @@ sys.path.append(parent_path)
 
 
 from aiengine.openai_requests import OpenaiAPI
-from aiengine.database_handler import *
-from aiengine.mistralai_requests import *
 from exception import CustomException
 
 

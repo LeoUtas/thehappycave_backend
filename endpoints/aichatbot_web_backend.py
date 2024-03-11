@@ -15,8 +15,6 @@ sys.path.append(parent_path)
 
 
 from aiengine.openai_requests import OpenaiAPI
-from aiengine.the11labs_requests import The11Labs
-from aiengine.mistralai_requests import *
 from database.database_handler import PromptHandling
 from exception import CustomException
 
@@ -56,7 +54,7 @@ voice_nova = os.getenv("VOICE_NOVA")
 openai_engine = OpenaiAPI(
     api_key, model_speech_to_text, model_text_generation, model_text_to_speech
 )
-the11labs_engine = The11Labs()
+# ------------------------------------------------------------------- #
 
 
 router = APIRouter()
@@ -69,20 +67,6 @@ async def reset_temporary():
 
     return {"response": "conversation reset"}
 
-
-# def retrieve_text_responses(path):
-#     with open(path, "r") as file:
-#         return json.load(file)
-
-
-# @router.get("/get_text_response/")
-# async def get_text_responses():
-#     try:
-#         text_responses = retrieve_text_responses(temporary_data_path)
-#         return text_responses
-
-#     except Exception as e:
-#         raise CustomException(e, sys)
 
 bug_phrases = ["you", "thank you.", "thank you for watching!", "thanks for watching!"]
 
@@ -120,7 +104,6 @@ async def get_ai_response(file: UploadFile = File(...)):
         prompt_handler.store_messages(transcript, ai_response)
 
         # Convert openai response to speech
-        # audio_output = the11labs_engine.convert_text_to_speech(ai_response)
         audio_output = openai_engine.convert_text_to_speech(voice_nova, ai_response)
 
         # Ensure output

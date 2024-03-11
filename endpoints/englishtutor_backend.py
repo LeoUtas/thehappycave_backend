@@ -16,8 +16,6 @@ sys.path.append(parent_path)
 
 
 from aiengine.openai_requests import OpenaiAPI
-from aiengine.the11labs_requests import The11Labs
-from aiengine.mistralai_requests import *
 from database.database_handler import PromptHandling
 from database.utils import *
 from exception import CustomException
@@ -65,7 +63,6 @@ voice_nova = os.getenv("VOICE_NOVA")
 openai_engine = OpenaiAPI(
     api_key, model_speech_to_text, model_text_generation, model_text_to_speech
 )
-the11labs_engine = The11Labs()
 # ------------------------------------------------------------------- #
 
 
