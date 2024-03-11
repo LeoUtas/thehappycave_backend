@@ -77,21 +77,21 @@ class OpenaiAPI:
         except Exception as e:
             raise CustomException(e, sys)
 
-    # # _____________ BACKEND FOR TODOTODAY _____________ #
-    # # ________________ TEXT GENERATION ________________ #
-    # def request_openai_response_for_todotoday(self, role: str, prompt: str):
-    #     try:
-    #         ai_response = self.client.chat.completions.create(
-    #             model=self.model_text_generation,
-    #             messages=[
-    #                 {
-    #                     "role": role,
-    #                     "content": prompt,
-    #                 }
-    #             ],
-    #         )
+    # _____________ BACKEND FOR TODOTODAY _____________ #
+    # ________________ TEXT GENERATION ________________ #
+    def request_openai_response_for_todotoday(self, role: str, prompt: str):
+        try:
+            ai_response = self.client.chat.completions.create(
+                model=self.model_text_generation,
+                messages=[
+                    {
+                        "role": role,
+                        "content": prompt,
+                    }
+                ],
+            )
 
-    #         return ai_response.choices[0].message.content
+            return ai_response.choices[0].message.content
 
-    #     except Exception as e:
-    #         raise CustomException(e, sys)
+        except Exception as e:
+            raise CustomException(e, sys)
