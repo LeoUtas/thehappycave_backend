@@ -16,6 +16,7 @@ from endpoints.aichatbot_web_backend import router as aichatbot_web_router
 from endpoints.englishtutor_backend import router as englishtutor_router
 from endpoints.talkativeagent_backend import router as talkativeagent_router
 from endpoints.thehappycave_auth_backend import router as thehappycave_auth_router
+from endpoints.birdclassification_backend import router as birdclassification_router
 
 
 app = FastAPI()
@@ -53,6 +54,7 @@ app.include_router(aichatbot_web_router, prefix="/aichatbot_web")
 app.include_router(englishtutor_router, prefix="/english_tutor")
 app.include_router(talkativeagent_router, prefix="/talkative_agent")
 app.include_router(thehappycave_auth_router, prefix="/thehappycave_auth")
+app.include_router(birdclassification_router, prefix="/birdclassification")
 
 
 if __name__ == "__main__":

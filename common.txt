@@ -109,3 +109,9 @@ docker run -p 5173:5173 my-react-app
 
 docker build -t your-fastapi-app .
 docker run -p 8000:8000 your-fastapi-app
+
+
+docker build --platform linux/amd64 -t registry.heroku.com/aichatbot-backend/web .
+docker push registry.heroku.com/aichatbot-backend/web
+heroku container:release web --app aichatbot-backend
+

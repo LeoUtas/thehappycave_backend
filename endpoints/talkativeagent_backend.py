@@ -48,7 +48,7 @@ prompt_handler = PromptHandling(
 
 # ________________ CONFIG OPENAI API ________________ #
 load_dotenv()
-api_key = os.getenv("THE_HAPPY_CAVE_TALKATIVEAGENT")
+api_key = os.getenv("OPENAI_THE_HAPPY_CAVE_TALKATIVEAGENT")
 model_speech_to_text = os.getenv("chosen_model_speech_to_text")
 model_text_generation = os.getenv("chosen_model_text_generation")
 model_text_to_speech = os.getenv("chosen_model_text_to_speech")
